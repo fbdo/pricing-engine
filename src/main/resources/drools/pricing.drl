@@ -1,0 +1,39 @@
+package com.github.fbdo.pricing.drools
+
+import java.util.HashMap
+import java.math.BigDecimal
+
+global java.io.PrintStream out
+global com.github.fbdo.pricing.drools.Price price
+global java.lang.String event
+
+rule "accountActivation" when
+    HashMap( this["event"] == "accountActivation" )
+then
+    out.println("Price for accountActivation: 1.50");
+    price.setValue(new BigDecimal("1.50"));
+end
+
+rule "subscriptionRenewal first layer" when
+    HashMap( this["event"] == "subscriptionRenewal" )
+    HashMap( this["amount"] < 100.00 )
+then
+    out.println("Price for subscriptionRenewal first layer: 2.50");
+    price.setValue(new BigDecimal("2.50"));
+end
+
+rule "subscriptionRenewal second layer" when
+    HashMap( this["event"] == "subscriptionRenewal" )
+    HashMap(this["amount"] > 100.00 && this["amount"] < 1000.00, $amount : this["amount"])
+then
+    out.println("Price for subscriptionRenewal second layer: 1.00 + 1%");
+    price.setValue(new BigDecimal("1.00").add(((BigDecimal)$amount).multiply(new BigDecimal("0.01"))));
+end
+
+rule "subscriptionRenewal third layer" when
+    HashMap( this["event"] == "subscriptionRenewal" )
+    HashMap(this["amount"] > 1000.00, $amount : this["amount"])
+then
+    out.println("Price for subscriptionRenewal third layer: 1%");
+    price.setValue(((BigDecimal)$amount).multiply(new BigDecimal("0.005")));
+end
