@@ -1,19 +1,31 @@
-package com.github.fbdo.pricing.drools;
+package com.github.fbdo.pricing;
 
-import com.github.fbdo.pricing.PricingEngine;
+import com.github.fbdo.pricing.drools.DroolsPricingEngine;
+import com.github.fbdo.pricing.groovy.GroovyPricingEngine;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-/**
- * Created by fabio on 27/09/14.
- */
-public class DroolsPricingEngineTest {
+@RunWith(Parameterized.class)
+public final class PricingEngineTest {
 
-    private PricingEngine engine = new DroolsPricingEngine();
+    private PricingEngine engine;
+
+    public PricingEngineTest(PricingEngine pe) {
+        this.engine = pe;
+    }
+
+    @Parameterized.Parameters
+    public static List<PricingEngine> pricingEngines() {
+        return Arrays.asList(new DroolsPricingEngine(), new GroovyPricingEngine());
+    }
 
     @Test
     public void testAccountActivationFixedPricing() {

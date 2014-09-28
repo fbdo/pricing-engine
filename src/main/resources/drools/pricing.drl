@@ -34,6 +34,6 @@ rule "subscriptionRenewal third layer" when
     HashMap( this["event"] == "subscriptionRenewal" )
     HashMap(this["amount"] > 1000.00, $amount : this["amount"])
 then
-    out.println("Price for subscriptionRenewal third layer: 1%");
+    out.println("Price for subscriptionRenewal third layer: 0.5%");
     price.setValue(((BigDecimal)$amount).multiply(new BigDecimal("0.005")));
 end
