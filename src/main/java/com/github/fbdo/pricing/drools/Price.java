@@ -2,7 +2,7 @@ package com.github.fbdo.pricing.drools;
 
 import java.math.BigDecimal;
 
-class Price {
+public class Price {
     private BigDecimal value;
 
     public BigDecimal getValue() {
