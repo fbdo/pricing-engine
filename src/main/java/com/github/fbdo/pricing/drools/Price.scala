@@ -1,15 +1,10 @@
 package com.github.fbdo.pricing.drools;
 
-import java.math.BigDecimal;
+import scala.beans.BeanProperty
 
-public class Price {
-    private BigDecimal value;
 
-    public BigDecimal getValue() {
-        return value;
-    }
+class Price {
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
+  @BeanProperty var value:BigDecimal = _
+
 }

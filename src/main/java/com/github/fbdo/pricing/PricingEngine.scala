@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by fabio on 27/09/14.
  */
-public interface PricingEngine {
+trait PricingEngine {
 
-    BigDecimal getPrice(Map<String, Object> attributes);
+    def getPrice(attributes: Map[String, Object]): BigDecimal
 }

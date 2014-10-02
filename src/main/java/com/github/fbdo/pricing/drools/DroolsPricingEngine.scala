@@ -8,26 +8,24 @@ import org.kie.api.builder.KieRepository;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
-import java.math.BigDecimal;
-import java.util.Map;
+class DroolsPricingEngine extends PricingEngine {
 
-public class DroolsPricingEngine implements PricingEngine {
-    @Override
-    public BigDecimal getPrice(Map<String, Object> attributes) {
-        KieServices ks = KieServices.Factory.get();
-        KieRepository kr = ks.getRepository();
-        KieModule kModule = kr.addKieModule(ks.getResources().newFileSystemResource(FileUtils.getScriptFolder("drools")));
+      @Override
+    def getPrice(attributes: Map[String, Object]): BigDecimal = {
+        val ks = KieServices.Factory.get
+        val kr = ks.getRepository
+        val kModule = kr.addKieModule(ks.getResources().newFileSystemResource(FileUtils.getScriptFolder("drools")))
 
-        KieContainer kContainer = ks.newKieContainer(kModule.getReleaseId());
+        val kContainer = ks.newKieContainer(kModule.getReleaseId)
 
-        KieSession kSession = kContainer.newKieSession();
-        kSession.setGlobal("out", System.out);
-        Price price = new Price();
-        kSession.setGlobal("price", price);
+        val kSession = kContainer.newKieSession
+        kSession.setGlobal("out", System.out)
+        val price = new Price 
+        kSession.setGlobal("price", price)
 
-        kSession.insert(attributes);
-        kSession.fireAllRules();
-        return price.getValue();
+        kSession.insert(attributes)
+        kSession.fireAllRules
+        return price.getValue
     }
 
 

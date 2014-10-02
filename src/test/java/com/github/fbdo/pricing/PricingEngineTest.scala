@@ -13,12 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(Parameterized.class)
-public final class PricingEngineTest {
+object PricingEngineTest(pe: PricingEngine) = {
 
-    private PricingEngine engine;
+    var engine:PricingEngine;
 
-    public PricingEngineTest(PricingEngine pe) {
+    public PricingEngineTest {
         this.engine = pe;
     }
 

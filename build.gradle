@@ -1,6 +1,5 @@
-apply plugin: 'java'
-apply plugin: 'maven'
 apply plugin: 'eclipse'
+apply plugin:  'scala'
 
 version = '1.0.0-SNAPSHOT'
 group = 'com.github.fbdo.labs'
@@ -12,6 +11,7 @@ repositories {
 }
 
 dependencies {
+	compile 'org.scala-lang:scala-library:2.9.1'
     compile 'org.kie:kie-api:6.1.0.Final'
     compile 'org.drools:drools-compiler:6.1.0.Final'
     compile 'org.drools:default-kiesession:6.1.0.Final'
@@ -19,4 +19,10 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.7'
     runtime 'org.slf4j:slf4j-simple:1.+'
     testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+	main = 'test.HelloWorld'
+	classpath sourceSets.main.runtimeClasspath
+	classpath configurations.runtime
 }
