@@ -4,3 +4,7 @@ build/
 pricing-engine.iml
 
 /bin
+
+.cache
+.classpath
+.project
